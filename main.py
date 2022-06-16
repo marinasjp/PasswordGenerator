@@ -1,5 +1,5 @@
 import random
-
+import string
 
 def create_password(lengths):
     password = ""
@@ -40,7 +40,7 @@ def ask_lenghts():
 def main():
     generate = "yes"
     while generate.lower() == "yes":
-        
+
         done = 0
         while done == 0:
             try:
@@ -59,6 +59,6 @@ def main():
 
 
 if __name__ == '__main__':
-    letters = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "a", "s", "d", "f", "g", "h", "j", "k", "l", "z", "x"]
+    letters = string.ascii_letters
     characters = ["/", "(", ")", "=", "!", "?", "@"]
     main()
