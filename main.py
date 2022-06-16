@@ -1,5 +1,6 @@
 import random
 import string
+import enchant
 
 
 def ask_lengths():
@@ -25,11 +26,16 @@ def ask_lengths():
 
 def create_password(lengths):
     """Adds the required number of elements, according to the list given as argument. Returns the password."""
-    password = ""
 
-    for i in range(lengths[0]):
-        letter = random.choice(letters)
-        password += letter
+    exists = True
+    while exists:
+        password = ""
+        for i in range(lengths[0]):
+            letter = random.choice(letters)
+            password += letter
+
+        # check if word exists in the english language
+        exists = dict.check(password.lower())
 
     for i in range(lengths[1]):
         num = str(random.randint(0, 10))
@@ -43,6 +49,11 @@ def create_password(lengths):
 
 
 def main():
+    print("*" * 50)
+    print("Welcome to RANDOM PASSWORD GENERATOR.\n You will be able to generate passwords in the format: "
+          "letters + numbers + special characters")
+    print("*" * 50)
+
     generate = "yes"
     while generate.lower() == "yes":
 
@@ -50,7 +61,7 @@ def main():
         # Loop until user gives a valid answer
         while done == 0:
             try:
-                no_passwords = int(input("Input the number of passwords to generate: "))
+                no_passwords = int(input("\nInput the number of passwords to generate: "))
                 done = 1
             except ValueError:
                 print("Please input a number.")
@@ -63,8 +74,11 @@ def main():
 
         generate = input("Do you want to generate more passwords? Enter \"yes\" to do so.\n")
 
+    print("Thank you for using random password generator!")
+
 
 if __name__ == '__main__':
+    dict = enchant.Dict("en_US")
     letters = string.ascii_letters
     characters = ["/", "(", ")", "=", "!", "?", "@"]
     main()
