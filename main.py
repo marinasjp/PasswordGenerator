@@ -1,30 +1,46 @@
 import random
 
 
-def create_password(letter_no, num_no, char_no):
+def create_password(lengths):
     password = ""
 
-    for i in range(letter_no):
+    for i in range(lengths[0]):
         letter = random.choice(letters)
         password += letter
 
-    for i in range(num_no):
+    for i in range(lengths[1]):
         num = str(random.randint(0, 10))
         password += num
 
-    for i in range(char_no):
+    for i in range(lengths[2]):
         char = random.choice(characters)
         password += char
 
     return password
 
 
-def main():
-    letter_no = int(input("Input the number of letters: "))
-    int_no = int(input("Input the number of numbers: "))
-    char_no = int(input("Input the number of characters: "))
+def ask_input():
+    questions = ["letters", "numbers", "characters"]
+    lengths = []
+    for i in range(3):
+        done = 0
+        while done == 0:
+            try:
+                letter_no = int(input("Input the number of "+ questions[i] +": "))
+                done = 1
+                lengths.append(letter_no)
 
-    password = create_password(letter_no, int_no, char_no)
+            except ValueError:
+                print("Please input a number. ")
+
+    return lengths
+
+
+
+def main():
+    lengths = ask_input()
+
+    password = create_password(lengths)
     print(password)
 
 
