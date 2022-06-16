@@ -19,29 +19,43 @@ def create_password(lengths):
     return password
 
 
-def ask_input():
+def ask_lenghts():
     questions = ["letters", "numbers", "characters"]
     lengths = []
+
     for i in range(3):
         done = 0
         while done == 0:
             try:
-                letter_no = int(input("Input the number of "+ questions[i] +": "))
+                letter_no = int(input("Input the number of " + questions[i] + ": "))
                 done = 1
                 lengths.append(letter_no)
 
             except ValueError:
-                print("Please input a number. ")
+                print("Please input a number.")
 
     return lengths
 
 
-
 def main():
-    lengths = ask_input()
+    generate = "yes"
+    while generate.lower() == "yes":
+        
+        done = 0
+        while done == 0:
+            try:
+                no_passwords = int(input("Input the number of passwords to generate: "))
+                done = 1
+            except ValueError:
+                print("Please input a number.")
 
-    password = create_password(lengths)
-    print(password)
+        lengths = ask_lenghts()
+
+        for i in range(no_passwords):
+            password = create_password(lengths)
+            print("The password generated is: " + password)
+
+        generate = input("Do you want to generate more passwords? Enter \"yes\" to do so.\n")
 
 
 if __name__ == '__main__':
