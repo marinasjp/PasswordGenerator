@@ -1,25 +1,11 @@
 import random
 import string
 
-def create_password(lengths):
-    password = ""
 
-    for i in range(lengths[0]):
-        letter = random.choice(letters)
-        password += letter
+def ask_lengths():
+    """Takes input from user to determine the number of letters, numbers and characters to include in the password.
+    It takes these values and puts them in a list."""
 
-    for i in range(lengths[1]):
-        num = str(random.randint(0, 10))
-        password += num
-
-    for i in range(lengths[2]):
-        char = random.choice(characters)
-        password += char
-
-    return password
-
-
-def ask_lenghts():
     questions = ["letters", "numbers", "characters"]
     lengths = []
 
@@ -37,11 +23,31 @@ def ask_lenghts():
     return lengths
 
 
+def create_password(lengths):
+    """Adds the required number of elements, according to the list given as argument. Returns the password."""
+    password = ""
+
+    for i in range(lengths[0]):
+        letter = random.choice(letters)
+        password += letter
+
+    for i in range(lengths[1]):
+        num = str(random.randint(0, 10))
+        password += num
+
+    for i in range(lengths[2]):
+        char = random.choice(characters)
+        password += char
+
+    return password
+
+
 def main():
     generate = "yes"
     while generate.lower() == "yes":
 
         done = 0
+        # Loop until user gives a valid answer
         while done == 0:
             try:
                 no_passwords = int(input("Input the number of passwords to generate: "))
@@ -49,7 +55,7 @@ def main():
             except ValueError:
                 print("Please input a number.")
 
-        lengths = ask_lenghts()
+        lengths = ask_lengths()
 
         for i in range(no_passwords):
             password = create_password(lengths)
